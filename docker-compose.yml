@@ -2,9 +2,7 @@ version: "3"
 services:
   react:
     container_name: react
-    build:
-      context: ./react-app
-      dockerfile: ./react-app/Dockerfile
+    build: ./react-app
     volumes:
       - ./react-app:/usr/src/app
     ports:
