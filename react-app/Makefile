@@ -6,7 +6,10 @@ clear:
 	rm -rf node_modules
 	rm -rf build
 
-build:
+install:
+	yarn
+
+build: clear install
 	yarn build
 
 put-on-s3:
@@ -22,6 +25,6 @@ infra-deploy:
 	--template cfn/createDestribution.yml \
 	--region ap-northeast-1
 
-deploy/production: infra-deploy build put-on-s3
+deploy/production: infra-deploy put-on-s3
 
 
