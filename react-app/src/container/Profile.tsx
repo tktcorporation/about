@@ -7,16 +7,18 @@ import { Links } from "../component/profile/Links";
 export const Profile = () => {
     return (
         <div className="Profile">
-            <p>tktcorporation</p>
-            <p>
+            <section>
+                <p>tktcorporation</p>
+            </section>
+            <section>
                 <Links />
-            </p>
-            <p>
+            </section>
+            <section>
                 <Products />
-            </p>
-            <p>
+            </section>
+            <section>
                 <Contact />
-            </p>
+            </section>
         </div>
     );
 };
