@@ -23,7 +23,8 @@ infra-deploy:
 		HostedZoneId="Z2698C2NRYXL3Y" \
 	--stack-name "${ProjectName}-${Environment}-hosting" \
 	--template cfn/createDestribution.yml \
-	--region ap-northeast-1
+	--region ap-northeast-1 \
+	--no-fail-on-empty-changeset
 
 deploy/production: infra-deploy put-on-s3
 
