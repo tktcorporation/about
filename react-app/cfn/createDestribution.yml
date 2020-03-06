@@ -1,29 +1,35 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: S3 and CloudFront for Static website hosting
 
-# Metadata:
-#   "AWS::CloudFormation::Interface":
-#     ParameterGroups:
-#       - Label:
-#           default: "S3 and CloudFront Configuration"
-#         Parameters:
-#           - WebsiteDomainName
-#           - ACMSSLCertificateARN
-#           - HostedZoneId
+Metadata:
+  "AWS::CloudFormation::Interface":
+    ParameterGroups:
+      - Label:
+          default: "S3 and CloudFront Configuration"
+        Parameters:
+          - WebsiteDomainName
+          - CFSSLCertificateId
+          - HostedZoneId
 
-#     ParameterLabels:
-#       WebsiteDomainName:
-#         default: "WebsiteDomainName"
-#       ACMSSLCertificateARN:
-#         default: "ACMSSLCertificateARN"
-#       HostedZoneId:
-#         default: "HostedZoneId"
+    ParameterLabels:
+      WebsiteDomainName:
+        default: "WebsiteDomainName"
+      ACMSSLCertificateARN:
+        default: "ACMSSLCertificateARN"
+      HostedZoneId:
+        default: "HostedZoneId"
 
 # ------------------------------------------------------------#
 # Input Parameters
 # ------------------------------------------------------------#
 Parameters:
-  SecretsManagerName:
+  WebsiteDomainName:
+    Type: String
+
+  ACMSSLCertificateARN:
+    Type: String
+
+  HostedZoneId:
     Type: String
 
 Resources:
@@ -34,7 +40,7 @@ Resources:
   Bucket:
     Type: "AWS::S3::Bucket"
     Properties:
-      BucketName: !Sub "{{resolve:secretsmanager:${SecretsManagerName}:SecretString:WEBSITE_DOMAIN_NAME}}"
+      BucketName: !Ref WebsiteDomainName
       AccessControl: PublicRead
       WebsiteConfiguration:
         IndexDocument: index.html
@@ -60,18 +66,14 @@ Resources:
     Properties:
       DistributionConfig:
         Aliases:
-          - !Sub "{{resolve:secretsmanager:${SecretsManagerName}:SecretString:WEBSITE_DOMAIN_NAME}}"
+          - !Sub "${WebsiteDomainName}"
         DefaultRootObject: "/index.html"
         PriceClass: PriceClass_All
         Origins:
           - DomainName: !GetAtt Bucket.DomainName
             S3OriginConfig:
               OriginAccessIdentity: !Sub origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}
-            Id: !Join
-              - ""
-              - - "S3-Website-"
-                - !Sub "{{resolve:secretsmanager:${SecretsManagerName}:SecretString:WEBSITE_DOMAIN_NAME}}"
-                - ".s3-website-ap-northeast-1.amazonaws.com"
+            Id: !Sub "S3-Website-${WebsiteDomainName}.s3-website-ap-northeast-1.amazonaws.com"
         CustomErrorResponses:
           - ErrorCachingMinTTL: 0
             ErrorCode: 404
@@ -82,11 +84,7 @@ Resources:
             ResponseCode: 200
             ResponsePagePath: "/index.html"
         DefaultCacheBehavior:
-          TargetOriginId: !Join
-            - ""
-            - - "S3-Website-"
-              - !Sub "{{resolve:secretsmanager:${SecretsManagerName}:SecretString:WEBSITE_DOMAIN_NAME}}"
-              - ".s3-website-ap-northeast-1.amazonaws.com"
+          TargetOriginId: !Sub "S3-Website-${WebsiteDomainName}.s3-website-ap-northeast-1.amazonaws.com"
           ViewerProtocolPolicy: redirect-to-https
           AllowedMethods:
             - GET
@@ -105,7 +103,7 @@ Resources:
         ViewerCertificate:
           SslSupportMethod: sni-only
           MinimumProtocolVersion: TLSv1.1_2016
-          AcmCertificateArn: !Sub "{{resolve:secretsmanager:${SecretsManagerName}:SecretString:ACM_SSL_CERTIFICATE_ARN}}"
+          AcmCertificateArn: !Sub "${ACMSSLCertificateARN}"
         HttpVersion: http2
         Enabled: true
 
@@ -118,11 +116,11 @@ Resources:
   DNSRecord:
     Type: AWS::Route53::RecordSet
     Properties:
-      HostedZoneId: !Sub "{{resolve:secretsmanager:${SecretsManagerName}:SecretString:HOSTED_ZONE_ID}}"
-      Name: !Sub "{{resolve:secretsmanager:${SecretsManagerName}:SecretString:WEBSITE_DOMAIN_NAME}}"
+      HostedZoneId: !Sub "${HostedZoneId}"
+      Name: !Sub "${WebsiteDomainName}"
       Type: A
       AliasTarget:
-        HostedZoneId: !Sub "{{resolve:secretsmanager:${SecretsManagerName}:SecretString:HOSTED_ZONE_ID}}"
+        HostedZoneId: !Sub "${HostedZoneId}"
         DNSName: !GetAtt CloudFrontDistribution.DomainName
 
 # ------------------------------------------------------------#
