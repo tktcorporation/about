@@ -11,6 +11,9 @@ export const Links = () => {
             <div>
                 <Link text="Qiita" url="https://qiita.com/tktcorporation" />
             </div>
+            <div>
+                <Link text="Twitter" url="https://twitter.com/tktcorporation" />
+            </div>
         </div>
     );
 };
