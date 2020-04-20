@@ -1,5 +1,22 @@
 .App {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    flex-grow: 1;
+    min-height: 100%;
+}
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-shrink: 0;
+    flex-grow: 1;
 }
 
 /* .App-logo {

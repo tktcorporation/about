@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Link } from "../Link";
+import { Link } from "../../Link";
+import "./Products.scss";
 
 export const Products = () => {
     return (
