@@ -11,3 +11,7 @@ section {
     justify-content: center;
     font-size: calc(1em);
 }
+.title {
+    line-height: 1.5em;
+    font-size: 1.2em;
+}
