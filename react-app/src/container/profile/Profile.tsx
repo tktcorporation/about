@@ -1,8 +1,8 @@
 import React from "react";
 import "./Profile.css";
-import { Contact } from "../component/profile/Contact";
-import { Products } from "../component/profile/Products";
-import { Links } from "../component/profile/Links";
+import { Contact } from "../../component/profile/Contact";
+import { Products } from "../../component/profile/products/Products";
+import { Links } from "../../component/profile/Links";
 
 export const Profile = () => {
     return (

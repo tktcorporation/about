@@ -1,13 +1,15 @@
 import React from "react";
-import "./App.css";
-import { Profile } from "./container/Profile";
+import "./App.scss";
+import { Profile } from "./container/profile/Profile";
+import { CopyRight } from "./component/copy-right/CopyRight";
 
-function App() {
-    return (
-        <div className="App">
+export const App = () => (
+    <div className="App">
+        <main>
             <Profile />
-        </div>
-    );
-}
-
-export default App;
+        </main>
+        <footer>
+            <CopyRight />
+        </footer>
+    </div>
+);
