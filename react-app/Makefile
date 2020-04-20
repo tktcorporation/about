@@ -9,6 +9,9 @@ clear:
 install:
 	yarn
 
+start-local:
+	docker-compose run --rm --service-ports react yarn start
+
 build: clear install
 	yarn build
 
