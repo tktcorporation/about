@@ -30,5 +30,5 @@ jobs:
       - name: Deploy
         id: deploy
         run: |
-          cd react-app
+          cd app
           make deploy/production
