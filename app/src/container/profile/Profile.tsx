@@ -1,7 +1,6 @@
 import React from "react";
 import "./Profile.css";
 import { Contact } from "../../component/profile/contact/Contact";
-import { Products } from "../../component/profile/products/Products";
 import { Links } from "../../component/profile/links/Links";
 
 export const Profile = () => {
@@ -12,9 +11,6 @@ export const Profile = () => {
             </section>
             <section>
                 <Links />
-            </section>
-            <section>
-                <Products />
             </section>
             <section>
                 <Contact />

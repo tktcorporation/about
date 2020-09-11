@@ -25,7 +25,7 @@ jobs:
         id: build-react
         run: |
           docker-compose build
-          docker-compose run react make build
+          docker-compose run app make build
 
       - name: Deploy
         id: deploy
