@@ -1,5 +1,5 @@
 section {
-    margin-block-end: 1em;
+    margin-block-end: 1.2em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
 }
@@ -12,6 +12,6 @@ section {
     font-size: calc(1em);
 }
 .title {
-    line-height: 1.5em;
+    line-height: 2em;
     font-size: 1.2em;
 }
