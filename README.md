@@ -4,4 +4,4 @@
 
 ### building infrastructure
 
-[howToDeploy](react-app/howToDeploy.md)
+[howToDeploy](app/howToDeploy.md)

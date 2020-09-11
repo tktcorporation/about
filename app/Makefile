@@ -14,7 +14,7 @@ test: install
 
 
 start-local:
-	cd ../ && docker-compose run --rm --service-ports react yarn start
+	cd ../ && docker-compose run --rm --service-ports app yarn start
 
 build: clear install
 	yarn build

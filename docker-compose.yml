@@ -1,9 +1,8 @@
 version: "3"
 services:
-  react:
-    container_name: react
-    build: ./react-app
+  app:
+    build: ./app
     volumes:
-      - ./react-app:/usr/src/app
+      - ./app:/usr/src/app
     ports:
       - "3000:3000"

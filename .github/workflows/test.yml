@@ -14,4 +14,4 @@ jobs:
       - name: Test
         id: test
         run: |
-          docker-compose run --rm --service-ports react make test
+          docker-compose run --rm --service-ports app make test
